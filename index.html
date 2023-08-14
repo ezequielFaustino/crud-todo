@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crud - Todo</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Css da aplicação -->
+  <link rel="stylesheet" href="public/app.css">
+</head>
+
+<body>
+  <div class="wrapper">
+    <header>
+      <h1>Crud Todo</h1>
+    </header>
+
+    <form data-js="todo-form">
+      <p>Adicione a sua tarefa:</p>
+      <div class="form-control">
+        <input type="text" data-js="todo-input" placeholder="Adicione a sua tarefa:">
+        <button type="submit">
+          <i class="fa-sharp fa-solid fa-plus"></i>
+        </button>
+      </div>
+    </form>
+
+    <form data-js="edit-form">
+      <p>Edite a sua tarefa:</p>
+      <div class="form-control">
+        <input type="text" data-js="edit-input">
+        <button type="submit">
+          <i class="fa-sharp fa-solid fa-pen-to-square"></i>
+        </button>
+      </div>
+      <button data-js="cancel-edit-btn">Cancelar</button>
+    </form>
+
+    <div class="toolbar">
+      <div class="search">
+        <h4>Pesquisar:</h4>
+        <form>
+          <input type="text" data-js="search-input" placeholder="Buscar">
+          <button data-trash="erase-btn">
+            <i class="fa-sharp fa-solid fa-trash"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div class="filter">
+      <h4>Filtrar:</h4>
+      <select data-js="filter-select">
+        <option value="all">Todos</option>
+        <option value="done">Feitos</option>
+        <option value="todo">A Fazer</option>
+      </select>
+    </div>
+
+    <div data-js="todo-list">
+      <div class="todo">
+        <h3>Estou a fazer algo...</h3>
+        <button class="finish-todo">
+          <i class="fa-sharp fa-solid fa-check"></i>
+        </button>
+        <button class="edit-todo">
+          <i class="fa-sharp fa-solid fa-pen"></i>
+        </button>
+        <button class="remove-todo">
+          <i class="fa-sharp fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="todo">
+        <h3>Estudar algo...</h3>
+        <button class="finish-todo">
+          <i class="fa-sharp fa-solid fa-check"></i>
+        </button>
+        <button class="edit-todo">
+          <i class="fa-sharp fa-solid fa-pen"></i>
+        </button>
+        <button class="remove-todo">
+          <i class="fa-sharp fa-solid fa-xmark"></i>
+        </button>
+      </div>
+    </div>
+
+  </div>
+  <script src="public/app.js"></script>
+</body>
+
+</html>
