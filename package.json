@@ -1,0 +1,17 @@
+{
+  "name": "crud-todo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "postcss:watch": "postcss src/app.css --dir public --watch"
+  },
+  "author": "Ezequiel Faustino",
+  "license": "MIT",
+  "devDependencies": {
+    "cssnano": "^6.0.1",
+    "postcss": "^8.4.27",
+    "postcss-cli": "^10.1.0",
+    "postcss-import": "^15.1.0"
+  }
+}
