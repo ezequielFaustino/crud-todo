@@ -1,0 +1,17 @@
+.text-center {
+  text-align: center;
+}
+
+.hide {
+  display: none;
+}
+
+.done {
+  background-color: #395169;
+
+  & h3 {
+    color: #fff;
+    text-decoration: line-through;
+    font-style: italic;
+  }
+}

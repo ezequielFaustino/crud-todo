@@ -17,7 +17,7 @@
 <body>
   <div class="wrapper">
     <header>
-      <h1>Crud Todo</h1>
+      <h1 class="text-center">Crud Todo</h1>
     </header>
 
     <form data-js="todo-form">
@@ -51,15 +51,16 @@
           </button>
         </form>
       </div>
-    </div>
 
-    <div class="filter">
-      <h4>Filtrar:</h4>
-      <select data-js="filter-select">
-        <option value="all">Todos</option>
-        <option value="done">Feitos</option>
-        <option value="todo">A Fazer</option>
-      </select>
+      <div class="filter">
+        <h4>Filtrar:</h4>
+        <select data-js="filter-select">
+          <option value="all">Todos</option>
+          <option value="done">Feitos</option>
+          <option value="todo">A Fazer</option>
+        </select>
+      </div>
+
     </div>
 
     <div data-js="todo-list">
@@ -75,7 +76,7 @@
           <i class="fa-sharp fa-solid fa-xmark"></i>
         </button>
       </div>
-      <div class="todo">
+      <div class="todo done">
         <h3>Estudar algo...</h3>
         <button class="finish-todo">
           <i class="fa-sharp fa-solid fa-check"></i>
