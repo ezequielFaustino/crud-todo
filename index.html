@@ -23,7 +23,7 @@
     <form data-js="todo-form">
       <p>Adicione a sua tarefa:</p>
       <div class="form-control">
-        <input type="text" data-js="todo-input" placeholder="Adicione a sua tarefa:">
+        <input type="text" data-js="todo-input" placeholder="O que irá fazer?" autofocus>
         <button type="submit">
           <i class="fa-sharp fa-solid fa-plus"></i>
         </button>
@@ -64,18 +64,6 @@
     </div>
 
     <div data-js="todo-list">
-      <div class="todo">
-        <h3>Estou a fazer algo...</h3>
-        <button class="finish-todo">
-          <i class="fa-sharp fa-solid fa-check"></i>
-        </button>
-        <button class="edit-todo">
-          <i class="fa-sharp fa-solid fa-pen"></i>
-        </button>
-        <button class="remove-todo">
-          <i class="fa-sharp fa-solid fa-xmark"></i>
-        </button>
-      </div>
       <div class="todo done">
         <h3>Estudar algo...</h3>
         <button class="finish-todo">
@@ -91,7 +79,7 @@
     </div>
 
   </div>
-  <script src="public/app.js"></script>
+  <script type="module" src="public/app.js"></script>
 </body>
 
 </html>
