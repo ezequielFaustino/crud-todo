@@ -3,7 +3,6 @@
 .wrapper {
   max-width: 30em;
   margin: 3em auto;
-  /* background-color: var(--clr-neutral); */
   padding: 1.5em;
   border-radius: .75em;
 }

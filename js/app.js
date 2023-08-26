@@ -31,7 +31,7 @@ const addTasksIntoDom = ({ task }) => {
   todo.appendChild(removeBtn)
 
   const fragment = document.createDocumentFragment()
-  
+
   fragment.append(todo)
   todoList.append(fragment)
 }
@@ -43,7 +43,7 @@ const handleFormSubmit = event => {
   const inputValue = todoInput.value.trim()
   const inputIsEmpty = inputValue.length
 
-  if(!inputIsEmpty) {
+  if (!inputIsEmpty) {
     alert('vazio')
     return
   }
@@ -57,14 +57,24 @@ const handleFormSubmit = event => {
 
 
 const searchTodo = event => {
-  console.log(event.target.value);
+  const searchValue = event.target.value.toLowerCase().trim()
+  const todos = Array.from(todoList.children).map(todo => ({
+    todo,
+    shouldBeVisible: todo.textContent.toLowerCase().includes(searchValue)
+  }))
+
+  todos.forEach(({ todo, shouldBeVisible }) => {
+    todo.classList.add(shouldBeVisible ? 'flex' : 'hide')
+    todo.classList.remove(shouldBeVisible ? 'hide' : 'flex')
+  })
+
 }
 
 const doneTodo = event => {
   const doneBtnWasClicked = event.target.classList.contains('finish-todo')
   const parentElement = event.target.parentElement
 
-  if(doneBtnWasClicked) {
+  if (doneBtnWasClicked) {
     parentElement.classList.toggle('done')
   }
 }

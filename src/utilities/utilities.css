@@ -6,6 +6,10 @@
   display: none;
 }
 
+.flex {
+  display: flex;
+}
+
 .done {
   background-color: #395169;
 
