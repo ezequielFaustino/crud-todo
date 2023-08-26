@@ -2,6 +2,7 @@ import * as localStorage from './local-storage.js'
 
 const todoForm = document.querySelector('[data-js="todo-form"]')
 const todoInput = document.querySelector('[data-js="todo-input"]')
+const searchInput = document.querySelector('[data-js="search-input"]')
 const todoList = document.querySelector('[data-js="todo-list"]')
 
 const tasks = localStorage.tasks
@@ -35,6 +36,7 @@ const addTasksIntoDom = ({ task }) => {
   todoList.append(fragment)
 }
 
+
 const handleFormSubmit = event => {
   event.preventDefault()
 
@@ -53,6 +55,11 @@ const handleFormSubmit = event => {
 
 }
 
+
+const searchTodo = event => {
+  console.log(event.target.value);
+}
+
 const doneTodo = event => {
   const doneBtnWasClicked = event.target.classList.contains('finish-todo')
   const parentElement = event.target.parentElement
@@ -62,6 +69,7 @@ const doneTodo = event => {
   }
 }
 
+
 const init = () => {
   todoList.innerHTML = ''
   tasks.forEach(addTasksIntoDom)
@@ -69,4 +77,5 @@ const init = () => {
 
 init()
 todoForm.addEventListener('submit', handleFormSubmit)
+searchInput.addEventListener('input', searchTodo)
 todoList.addEventListener('pointerdown', doneTodo)
