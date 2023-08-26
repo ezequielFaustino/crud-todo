@@ -1,10 +1,8 @@
-const getLocalStorage = () => JSON.parse(localStorage.getItem('tasks')) ?? []
-const setLocalStorage = tasks => localStorage.setItem('tasks', JSON.stringify(tasks))
+const getLocalStorage = JSON.parse(localStorage.getItem('tasks'))
 
-export const readTasks = () => getLocalStorage()
+export const tasks = localStorage
+  .getItem('tasks') !== null ? getLocalStorage : []
 
-export const createTask = task => {
-  const newTask = getLocalStorage()
-  newTask.push(task)
-  setLocalStorage(newTask)
-}
+export const createTask = taskName => tasks.push({task: taskName})
+
+export const updateLocalStorage = () => localStorage.setItem('tasks', JSON.stringify(tasks))

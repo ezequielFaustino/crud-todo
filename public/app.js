@@ -1,17 +1,18 @@
 import * as localStorage from './local-storage.js'
 
-const readTasks = localStorage.readTasks()
 const todoForm = document.querySelector('[data-js="todo-form"]')
 const todoInput = document.querySelector('[data-js="todo-input"]')
 const todoList = document.querySelector('[data-js="todo-list"]')
 
-const addTasksIntoDom = tasks => {
+const tasks = localStorage.tasks
+
+const addTasksIntoDom = ({ task }) => {
   const todo = document.createElement('div')
   todo.classList.add('todo')
 
-  const task = document.createElement('h3')
-  task.textContent = `${tasks.task}`
-  todo.appendChild(task)
+  const h3 = document.createElement('h3')
+  h3.textContent = `${task}`
+  todo.appendChild(h3)
 
   const finishBtn = document.createElement('button')
   finishBtn.classList.add('finish-todo')
@@ -37,13 +38,35 @@ const addTasksIntoDom = tasks => {
 const handleFormSubmit = event => {
   event.preventDefault()
 
-  const inputValue = todoInput.value
-  console.log(inputValue);
+  const inputValue = todoInput.value.trim()
+  const inputIsEmpty = inputValue.length
+
+  if(!inputIsEmpty) {
+    alert('vazio')
+    return
+  }
+
+  localStorage.createTask(inputValue)
+  localStorage.updateLocalStorage()
+  init()
+  todoInput.value = ''
+
+}
+
+const doneTodo = event => {
+  const doneBtnWasClicked = event.target.classList.contains('finish-todo')
+  const parentElement = event.target.parentElement
+
+  if(doneBtnWasClicked) {
+    parentElement.classList.toggle('done')
+  }
 }
 
 const init = () => {
-  readTasks.forEach(addTasksIntoDom)
+  todoList.innerHTML = ''
+  tasks.forEach(addTasksIntoDom)
 }
 
 init()
 todoForm.addEventListener('submit', handleFormSubmit)
+todoList.addEventListener('pointerdown', doneTodo)
