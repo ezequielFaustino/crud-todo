@@ -7,7 +7,7 @@ const todoList = document.querySelector('[data-js="todo-list"]')
 
 const tasks = localStorage.tasks
 
-const addTasksIntoDom = ({ task }) => {
+const addTasksIntoDom = ({ task }, index) => {
   const todo = document.createElement('div')
   todo.classList.add('todo')
 
@@ -27,6 +27,7 @@ const addTasksIntoDom = ({ task }) => {
 
   const removeBtn = document.createElement('button')
   removeBtn.classList.add('remove-todo')
+  removeBtn.dataset.trash = `${index}`
   removeBtn.innerHTML = `<i class="fa-sharp fa-solid fa-xmark"></i>`
   todo.appendChild(removeBtn)
 
@@ -79,6 +80,17 @@ const doneTodo = event => {
   }
 }
 
+const removeTodo = event => {
+  const removeBtnWasClicked = event.target.classList.contains('remove-todo')
+  const taskId = event.target.dataset.trash
+
+  if(removeBtnWasClicked) {
+    localStorage.deleteTask(taskId)
+    init()
+
+  }
+}
+
 
 const init = () => {
   todoList.innerHTML = ''
@@ -89,3 +101,4 @@ init()
 todoForm.addEventListener('submit', handleFormSubmit)
 searchInput.addEventListener('input', searchTodo)
 todoList.addEventListener('pointerdown', doneTodo)
+todoList.addEventListener('pointerdown', removeTodo)
