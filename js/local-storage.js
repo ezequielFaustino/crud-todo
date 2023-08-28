@@ -11,9 +11,10 @@ export const deleteTask = index => {
   updateLocalStorage()
 }
 
-export const editTask = (index,) => {
-  let currentTasks = tasks
-  console.log(currentTasks[index])
+export const editTask = (index, updatedTask) => {
+  let currentTask = tasks
+  currentTask[index] = {task: updatedTask}
+  console.log(currentTask)
   updateLocalStorage()
 
 }

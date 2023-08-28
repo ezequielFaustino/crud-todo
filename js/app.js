@@ -47,7 +47,6 @@ const addTasksIntoDom = ({ task }, index) => {
   todoList.append(fragment)
 }
 
-
 const handleAddTodoForm = event => {
   event.preventDefault()
 
@@ -65,8 +64,6 @@ const handleAddTodoForm = event => {
   todoInput.value = ''
 
 }
-
-const handleEditTodoForm = event => event.preventDefault()
 
 const searchTodo = event => {
   const searchValue = event.target.value.toLowerCase().trim()
@@ -99,11 +96,12 @@ const editTodo = event => {
   const todoId = event.target.dataset.edit
 
   editInput.value = taskInputValue
-  const updatedTask = editInput.value
 
   if (editBtnWasClicked) {
     toggleForms()
+    
     editBtn.addEventListener('pointerdown', () => {
+      const updatedTask = editInput.value
       localStorage.editTask(todoId, updatedTask)
     })
   }
@@ -120,7 +118,6 @@ const removeTodo = event => {
   }
 }
 
-
 const init = () => {
   todoList.innerHTML = ''
   tasks.forEach(addTasksIntoDom)
@@ -129,7 +126,6 @@ const init = () => {
 init()
 
 todoForm.addEventListener('submit', handleAddTodoForm)
-editForm.addEventListener('submit', handleEditTodoForm)
 searchInput.addEventListener('input', searchTodo)
 todoList.addEventListener('pointerdown', doneTodo)
 todoList.addEventListener('pointerdown', editTodo)
