@@ -1,11 +1,20 @@
 import * as localStorage from './local-storage.js'
 
 const todoForm = document.querySelector('[data-js="todo-form"]')
+const editForm = document.querySelector('[data-js="edit-form"]')
 const todoInput = document.querySelector('[data-js="todo-input"]')
+const editInput = document.querySelector('[data-js="edit-input"]')
+const editBtn = document.querySelector('[data-js="edit-btn"]')
 const searchInput = document.querySelector('[data-js="search-input"]')
 const todoList = document.querySelector('[data-js="todo-list"]')
 
 const tasks = localStorage.tasks
+
+const toggleForms = () => {
+  todoForm.classList.toggle('hide')
+  editForm.classList.toggle('hide')
+  todoList.classList.toggle('hide')
+}
 
 const addTasksIntoDom = ({ task }, index) => {
   const todo = document.createElement('div')
@@ -22,6 +31,7 @@ const addTasksIntoDom = ({ task }, index) => {
 
   const editBtn = document.createElement('button')
   editBtn.classList.add('edit-todo')
+  editBtn.dataset.edit = `${index}`
   editBtn.innerHTML = `<i class="fa-sharp fa-solid fa-pen"></i>`
   todo.appendChild(editBtn)
 
@@ -38,7 +48,7 @@ const addTasksIntoDom = ({ task }, index) => {
 }
 
 
-const handleFormSubmit = event => {
+const handleAddTodoForm = event => {
   event.preventDefault()
 
   const inputValue = todoInput.value.trim()
@@ -56,6 +66,7 @@ const handleFormSubmit = event => {
 
 }
 
+const handleEditTodoForm = event => event.preventDefault()
 
 const searchTodo = event => {
   const searchValue = event.target.value.toLowerCase().trim()
@@ -80,11 +91,29 @@ const doneTodo = event => {
   }
 }
 
+const editTodo = event => {
+  const editBtnWasClicked = event.target.classList.contains('edit-todo')
+  const parentEl = event.target.parentElement
+  const firstElementChild = parentEl.firstElementChild
+  const taskInputValue = firstElementChild.textContent
+  const todoId = event.target.dataset.edit
+
+  editInput.value = taskInputValue
+  const updatedTask = editInput.value
+
+  if (editBtnWasClicked) {
+    toggleForms()
+    editBtn.addEventListener('pointerdown', () => {
+      localStorage.editTask(todoId, updatedTask)
+    })
+  }
+}
+
 const removeTodo = event => {
   const removeBtnWasClicked = event.target.classList.contains('remove-todo')
   const taskId = event.target.dataset.trash
 
-  if(removeBtnWasClicked) {
+  if (removeBtnWasClicked) {
     localStorage.deleteTask(taskId)
     init()
 
@@ -98,7 +127,10 @@ const init = () => {
 }
 
 init()
-todoForm.addEventListener('submit', handleFormSubmit)
+
+todoForm.addEventListener('submit', handleAddTodoForm)
+editForm.addEventListener('submit', handleEditTodoForm)
 searchInput.addEventListener('input', searchTodo)
 todoList.addEventListener('pointerdown', doneTodo)
+todoList.addEventListener('pointerdown', editTodo)
 todoList.addEventListener('pointerdown', removeTodo)
