@@ -84,14 +84,30 @@ const searchTodo = event => {
 
 const filterTodo = event => {
   const optionValue = event.target.value
-  const todos = Array.from(todoList.children).map(todo => ({
-    todo,
-    done: optionValue === 'done' && todo.classList.contains(optionValue)
-  }))
 
-  if (optionValue === 'all') {
-    const todos = document.querySelectorAll('.todo')
-    todos.forEach(todo => todo.style.display = 'flex')
+  const todos = Array.from(todoList.children)
+
+  switch(optionValue) {
+    case 'all':
+      todos.forEach(todo => todo.style.display = 'flex')
+      break
+
+    case 'done':
+      const doneTasks = todos.map(todo => ({
+        todo,
+        done: todo.classList.contains('done')     
+      }))
+      doneTasks.forEach(({ todo, done }) => todo.style.display = done ? 'flex' : 'none')
+      break
+    
+    case 'pending':
+      const pendingTasks = todos.map(todo => ({
+        todo,
+        pending: !todo.classList.contains('done')
+      }))
+      pendingTasks.forEach(({ todo, pending }) => 
+        todo.style.display = pending ? 'flex' : 'none')
+      break
   }
 
 
