@@ -6,7 +6,9 @@ const todoInput = document.querySelector('[data-js="todo-input"]')
 const editInput = document.querySelector('[data-js="edit-input"]')
 const editBtn = document.querySelector('[data-js="edit-btn"]')
 const searchInput = document.querySelector('[data-js="search-input"]')
+const filterSelect = document.querySelector('[data-js="filter-select"]')
 const todoList = document.querySelector('[data-js="todo-list"]')
+const alertDiv = document.querySelector('.alert-item')
 
 const tasks = localStorage.tasks
 
@@ -54,7 +56,8 @@ const handleAddTodoForm = event => {
   const inputIsEmpty = inputValue.length
 
   if (!inputIsEmpty) {
-    alert('vazio')
+    alertDiv.classList.remove('hide')
+    setTimeout(() => alertDiv.classList.add('hide'), 3000)
     return
   }
 
@@ -79,6 +82,21 @@ const searchTodo = event => {
 
 }
 
+const filterTodo = event => {
+  const optionValue = event.target.value
+  const todos = Array.from(todoList.children).map(todo => ({
+    todo,
+    done: optionValue === 'done' && todo.classList.contains(optionValue)
+  }))
+
+  if (optionValue === 'all') {
+    const todos = document.querySelectorAll('.todo')
+    todos.forEach(todo => todo.style.display = 'flex')
+  }
+
+
+}
+
 const doneTodo = event => {
   const doneBtnWasClicked = event.target.classList.contains('finish-todo')
   const parentElement = event.target.parentElement
@@ -99,7 +117,7 @@ const editTodo = event => {
 
   if (editBtnWasClicked) {
     toggleForms()
-    
+
     editBtn.addEventListener('pointerdown', () => {
       const updatedTask = editInput.value
       localStorage.editTask(todoId, updatedTask)
@@ -127,6 +145,7 @@ init()
 
 todoForm.addEventListener('submit', handleAddTodoForm)
 searchInput.addEventListener('input', searchTodo)
+filterSelect.addEventListener('change', filterTodo)
 todoList.addEventListener('pointerdown', doneTodo)
 todoList.addEventListener('pointerdown', editTodo)
 todoList.addEventListener('pointerdown', removeTodo)

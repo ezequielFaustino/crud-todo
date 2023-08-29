@@ -12,7 +12,6 @@ header {
   border-bottom: 1px solid #ccc;
 }
 
-
 form[data-js="todo-form"],
 form[data-js="edit-form"] {
   padding: 1em;
