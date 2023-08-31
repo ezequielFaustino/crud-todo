@@ -5,18 +5,17 @@ export const tasks = localStorage
 
 export const createTask = taskName => tasks.push({task: taskName})
 
-export const deleteTask = index => {
-  const currentTasks = tasks
-  currentTasks.splice(index, 1)
-  updateLocalStorage()
-}
+// export const deleteTask = index => {
+//   const currentTasks = tasks
+//   currentTasks.splice(index, 1)
+//   updateLocalStorage()
+// }
 
-export const editTask = (index, updatedTask) => {
-  let currentTask = tasks
-  currentTask[index] = {task: updatedTask}
-  console.log(currentTask)
-  updateLocalStorage()
+// export const editTask = (index, updatedTask) => {
+//   let currentTask = tasks
+//   currentTask[index] = {task: updatedTask}
+//   updateLocalStorage()
 
-}
+// }
 
-export const updateLocalStorage = () => localStorage.setItem('tasks', JSON.stringify(tasks))
+// export const updateLocalStorage = () => localStorage.setItem('tasks', JSON.stringify(tasks))

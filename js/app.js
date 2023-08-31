@@ -1,4 +1,4 @@
-import * as localStorage from './local-storage.js'
+// import * as localStorage from './local-storage.js'
 
 const todoForm = document.querySelector('[data-js="todo-form"]')
 const editForm = document.querySelector('[data-js="edit-form"]')
@@ -10,7 +10,10 @@ const filterSelect = document.querySelector('[data-js="filter-select"]')
 const todoList = document.querySelector('[data-js="todo-list"]')
 const alertDiv = document.querySelector('.alert-item')
 
-const tasks = localStorage.tasks
+// const tasks = localStorage.tasks
+const saveTask = () => localStorage.setItem('tasks', todoList.innerHTML)
+const showTask = () => todoList.innerHTML = localStorage.getItem('tasks')
+
 
 const toggleForms = () => {
   todoForm.classList.toggle('hide')
@@ -18,7 +21,7 @@ const toggleForms = () => {
   todoList.classList.toggle('hide')
 }
 
-const addTasksIntoDom = ({ task }, index) => {
+const addTasksIntoDom = (task) => {
   const todo = document.createElement('div')
   todo.classList.add('todo')
 
@@ -33,13 +36,13 @@ const addTasksIntoDom = ({ task }, index) => {
 
   const editBtn = document.createElement('button')
   editBtn.classList.add('edit-todo')
-  editBtn.dataset.edit = `${index}`
+  // editBtn.dataset.edit = `${index}`
   editBtn.innerHTML = `<i class="fa-sharp fa-solid fa-pen"></i>`
   todo.appendChild(editBtn)
 
   const removeBtn = document.createElement('button')
   removeBtn.classList.add('remove-todo')
-  removeBtn.dataset.trash = `${index}`
+  // removeBtn.dataset.trash = `${index}`
   removeBtn.innerHTML = `<i class="fa-sharp fa-solid fa-xmark"></i>`
   todo.appendChild(removeBtn)
 
@@ -47,6 +50,7 @@ const addTasksIntoDom = ({ task }, index) => {
 
   fragment.append(todo)
   todoList.append(fragment)
+  saveTask()
 }
 
 const handleAddTodoForm = event => {
@@ -61,10 +65,9 @@ const handleAddTodoForm = event => {
     return
   }
 
-  localStorage.createTask(inputValue)
-  localStorage.updateLocalStorage()
-  init()
+  addTasksIntoDom(inputValue)
   todoInput.value = ''
+  todoInput.focus()
 
 }
 
@@ -87,7 +90,7 @@ const filterTodo = event => {
 
   const todos = Array.from(todoList.children)
 
-  switch(optionValue) {
+  switch (optionValue) {
     case 'all':
       todos.forEach(todo => todo.style.display = 'flex')
       break
@@ -95,17 +98,17 @@ const filterTodo = event => {
     case 'done':
       const doneTasks = todos.map(todo => ({
         todo,
-        done: todo.classList.contains('done')     
+        done: todo.classList.contains('done')
       }))
       doneTasks.forEach(({ todo, done }) => todo.style.display = done ? 'flex' : 'none')
       break
-    
+
     case 'pending':
       const pendingTasks = todos.map(todo => ({
         todo,
         pending: !todo.classList.contains('done')
       }))
-      pendingTasks.forEach(({ todo, pending }) => 
+      pendingTasks.forEach(({ todo, pending }) =>
         todo.style.display = pending ? 'flex' : 'none')
       break
   }
@@ -119,7 +122,9 @@ const doneTodo = event => {
 
   if (doneBtnWasClicked) {
     parentElement.classList.toggle('done')
+    saveTask()
   }
+
 }
 
 const editTodo = event => {
@@ -147,17 +152,19 @@ const removeTodo = event => {
 
   if (removeBtnWasClicked) {
     localStorage.deleteTask(taskId)
-    init()
+    // init()
 
   }
 }
 
+/*
 const init = () => {
   todoList.innerHTML = ''
   tasks.forEach(addTasksIntoDom)
 }
+*/
 
-init()
+showTask()
 
 todoForm.addEventListener('submit', handleAddTodoForm)
 searchInput.addEventListener('input', searchTodo)
