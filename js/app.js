@@ -16,7 +16,7 @@ const toggleForms = () => {
   todoList.classList.toggle('hide')
 }
 
-const addTasksIntoDom = (task, done = 0) => {
+const addTasksIntoDom = (id, task, done = 0) => {
   const todo = document.createElement('div')
   todo.classList.add('todo')
 
@@ -37,13 +37,13 @@ const addTasksIntoDom = (task, done = 0) => {
 
   const removeBtn = document.createElement('button')
   removeBtn.classList.add('remove-todo')
-  // removeBtn.dataset.trash = `${index}`
+  removeBtn.dataset.trash = id
   removeBtn.innerHTML = `<i class="fa-sharp fa-solid fa-xmark"></i>`
   todo.appendChild(removeBtn)
 
   const fragment = document.createDocumentFragment()
 
-  if(done) {
+  if (done) {
     todo.classList.add('done')
   }
 
@@ -62,6 +62,8 @@ const handleAddTodoForm = event => {
     setTimeout(() => alertDiv.classList.add('hide'), 3000)
     return
   }
+
+
 
   localstorage.saveTasks(inputValue)
   loadTodos()
@@ -146,23 +148,22 @@ const editTodo = event => {
 }
 */
 
-/*
 const removeTodo = event => {
   const removeBtnWasClicked = event.target.classList.contains('remove-todo')
-  const taskId = event.target.dataset.trash
+  const taskId = Number(event.target.dataset.trash)
+
 
   if (removeBtnWasClicked) {
     localstorage.deleteTask(taskId)
-    // init()
-
+    loadTodos()
   }
 }
-*/
+
 
 const loadTodos = () => {
   todoList.innerHTML = ''
   const todos = localstorage.getLocalStorage()
-  todos.forEach(todo => addTasksIntoDom(todo.task, todo.done))
+  todos.forEach(todo => addTasksIntoDom(todo.id, todo.task, todo.done))
 }
 
 loadTodos()
@@ -171,5 +172,5 @@ todoForm.addEventListener('submit', handleAddTodoForm)
 searchInput.addEventListener('input', searchTodo)
 filterSelect.addEventListener('change', filterTodo)
 todoList.addEventListener('pointerdown', doneTodo)
-todoList.addEventListener('pointerdown', editTodo)
-todoList.addEventListener('pointerdown', removeTodo)
+// todoList.addEventListener('pointerdown', editTodo)
+todoList.addEventListener('pointerdown', removeTodo) 
