@@ -81,7 +81,6 @@ const searchTodo = event => {
     todo.classList.add(shouldBeVisible ? 'flex' : 'hide')
     todo.classList.remove(shouldBeVisible ? 'hide' : 'flex')
   })
-
 }
 
 const filterTodo = event => {
@@ -112,29 +111,21 @@ const filterTodo = event => {
       break
   }
 
-
 }
 
 const doneTodo = event => {
   const doneBtnWasClicked = event.target.classList.contains('finish-todo')
   const parentElement = event.target.parentElement
-  const taskName = parentElement.firstChild
+  const firstChildParentEl = parentElement.firstChild
+  const taskName = firstChildParentEl.textContent
 
   if (doneBtnWasClicked) {
     parentElement.classList.toggle('done')
-    updateTodoStatusLocalStorage(taskName.textContent)
+    localstorage.updateTodoStatusLocalStorage(taskName)
   }
 }
 
-const updateTodoStatusLocalStorage = taskName => {
-  const todos = localstorage.getLocalStorage()
-
-  todos.map(todo => todo.task === taskName ? (todo.done = !todo.done) : null)
-
-  localStorage.setItem('tasks', JSON.stringify(todos))
-
-}
-
+/*
 const editTodo = event => {
   const editBtnWasClicked = event.target.classList.contains('edit-todo')
   const parentEl = event.target.parentElement
@@ -153,7 +144,9 @@ const editTodo = event => {
     })
   }
 }
+*/
 
+/*
 const removeTodo = event => {
   const removeBtnWasClicked = event.target.classList.contains('remove-todo')
   const taskId = event.target.dataset.trash
@@ -164,6 +157,7 @@ const removeTodo = event => {
 
   }
 }
+*/
 
 const loadTodos = () => {
   todoList.innerHTML = ''

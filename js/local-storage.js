@@ -9,6 +9,14 @@ export const saveTasks = task => {
   return todos
 } 
 
+export const updateTodoStatusLocalStorage = taskName => {
+  const todos = getLocalStorage()
+
+  todos.map(todo => todo.task === taskName ? (todo.done = !todo.done) : null)
+
+  localStorage.setItem('tasks', JSON.stringify(todos))
+}
+
 // export const deleteTask = index => {
 //   const currentTasks = tasks
 //   currentTasks.splice(index, 1)
