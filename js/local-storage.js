@@ -22,15 +22,15 @@ export const updateTodoStatusLocalStorage = taskName => {
 
 export const deleteTask = ID => {
   const tasks = getLocalStorage()
-  const filteredTasks = tasks.filter(({ id }) => id !== ID) 
-  
+  const filteredTasks = tasks.filter(({ id }) => id !== ID)
+
   localStorage.setItem('tasks', JSON.stringify(filteredTasks))
 }
 
-// export const editTask = (index, updatedTask) => {
-//   let currentTask = tasks
-//   currentTask[index] = {task: updatedTask}
-//   updateLocalStorage()
+export const editTask = (id, updatedTask) => {
+  const tasks = getLocalStorage()
+  tasks.map(todo => todo.id === id ? (todo.task = updatedTask) : null)
 
-// }
+  localStorage.setItem('tasks', JSON.stringify(tasks))
+}
 

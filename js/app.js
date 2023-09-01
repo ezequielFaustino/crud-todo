@@ -31,7 +31,7 @@ const addTasksIntoDom = (id, task, done = 0) => {
 
   const editBtn = document.createElement('button')
   editBtn.classList.add('edit-todo')
-  // editBtn.dataset.edit = `${index}`
+  editBtn.dataset.edit = id
   editBtn.innerHTML = `<i class="fa-sharp fa-solid fa-pen"></i>`
   todo.appendChild(editBtn)
 
@@ -127,13 +127,13 @@ const doneTodo = event => {
   }
 }
 
-/*
 const editTodo = event => {
+
   const editBtnWasClicked = event.target.classList.contains('edit-todo')
   const parentEl = event.target.parentElement
   const firstElementChild = parentEl.firstElementChild
   const taskInputValue = firstElementChild.textContent
-  const todoId = event.target.dataset.edit
+  const todoId = Number(event.target.dataset.edit)
 
   editInput.value = taskInputValue
 
@@ -146,7 +146,6 @@ const editTodo = event => {
     })
   }
 }
-*/
 
 const removeTodo = event => {
   const removeBtnWasClicked = event.target.classList.contains('remove-todo')
@@ -172,5 +171,5 @@ todoForm.addEventListener('submit', handleAddTodoForm)
 searchInput.addEventListener('input', searchTodo)
 filterSelect.addEventListener('change', filterTodo)
 todoList.addEventListener('pointerdown', doneTodo)
-// todoList.addEventListener('pointerdown', editTodo)
+todoList.addEventListener('pointerdown', editTodo)
 todoList.addEventListener('pointerdown', removeTodo) 
