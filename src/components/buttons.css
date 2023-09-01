@@ -1,7 +1,9 @@
+@import '../base/base.css';
+
 button {
-  background-color: #fdfdfd;
-  color: #102f5e;
-  border: 2px solid #102f5e;
+  background-color: var(--clr-neutral);
+  color: var(--clr-primary);
+  border: 2px solid var(--clr-primary);
   padding: .3rem .6rem;
   font-size: 1rem;
   cursor: pointer;
@@ -12,16 +14,16 @@ button {
 }
 
 button:hover {
-  background-color: #102f5e;
-  color: #fff;
+  background-color: var(--clr-primary);
+  color: var(--clr-neutral);
 }
 
 button:hover > i {
-  color: #fff;
+  color: var(--clr-neutral);
 }
 
 button i {
-  color: #102f5e;
+  color: var(--clr-primary);
   font-weight: 700;
   pointer-events: none;
 }
