@@ -1,9 +1,13 @@
-const getLocalStorage = JSON.parse(localStorage.getItem('tasks'))
+export const getLocalStorage = () => JSON.parse(localStorage.getItem('tasks')) || []
 
-export const tasks = localStorage
-  .getItem('tasks') !== null ? getLocalStorage : []
+export const saveTasks = task => {
+  const todos = getLocalStorage()
+  todos.push({task, done: 0})
 
-export const createTask = taskName => tasks.push({task: taskName})
+  localStorage.setItem('tasks', JSON.stringify(todos))
+  
+  return todos
+} 
 
 // export const deleteTask = index => {
 //   const currentTasks = tasks
